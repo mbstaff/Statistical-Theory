@@ -1,0 +1,69 @@
+---
+title: "CLT"
+output: html_notebook
+---
+ 
+Class
+seq sets up a vector of numbers (from, to, by-how fine the plot is )
+
+```{r}
+mu = 50
+sigma = 6
+x=seq(mu-3*sigma, mu+3*sigma, by =1)
+plot(x, dnorm(x, mu, sigma), type = "l", lty = "dotted", col = "red", ylim = c(0,
+0.5))
+sigma1=2
+x1= seq(50-3*sigma1, 50+3*sigma1, by = 0.1)
+lines(x1, dnorm(x1, mu, sigma1), type = "l", lty = "dashed", col = "blue")
+sigma2 = 1
+x2 = seq(50-3*1, 50+1*3, by = 0.005)
+lines(x2, dnorm(x2, mu, sigma2), type = "l", lty = "twodash", col = "black")
+
+```
+
+Test Score Simulation
+```{r}
+scores <-  sample(60:100, 100, replace = TRUE)
+```
+```{r}
+mean(scores)
+sd(scores)
+hist(scores, probability = TRUE, col= "cyan")
+```
+```{r}
+mean.sample <- numeric(25) #create a vector to store the sample mean of the
+#experiment, you can change the number 25 to 250, 2500 and so on
+for(i in 1:1000) #to repeat the experiment 1000 times.
+{
+x_bar.sample <- sample(scores,25) #creating a random sample of size 25 from the scores
+mean.sample[i] <- mean(x_bar.sample) # we store the mean of this sample in
+mean.sample# and we do this 1000 times
+}
+hist(mean.sample, probability = TRUE, col = "blue", main = "n = 25") #creating a histogram for the x_bar samples
+mean_xbar <-  mean(mean.sample)
+sd_xbar <- sd(mean.sample)
+print(c(mean_xbar, sd_xbar))
+```
+```{r}
+uniform <- runif(150,min = 0,max = 1)
+mean(uniform)
+sd(scores)
+hist(uniform, probability = TRUE, col= "cyan")
+```
+
+```{r}
+mean_sample <- numeric(40)
+for(i in 1:1000)
+{
+x_bar_sample <- sample(uniform,25, TRUE) 
+mean_sample[i] <- mean(x_bar_sample)
+mean_sample
+}
+hist(mean_sample, probability = TRUE, col = "blue", main = "n = 25") 
+mean_xbar <-  mean(mean_sample)
+sd_xbar <- sd(mean_sample)
+print(c(mean_xbar, sd_xbar))
+
+```
+
+Central Limit Theorem works for all kinds of distributions.
